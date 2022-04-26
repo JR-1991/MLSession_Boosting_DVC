@@ -1,0 +1,51 @@
+name: CML-Workflow
+
+on:
+  push:
+    branches-ignore:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: iterative/setup-cml@v1
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+      - name: Install Python Requirements
+        run: |
+          pip install -r requirements.txt
+      - name: Run Stage
+        run: |
+          dvc repro
+      - name: Make PR and CML Publish Results
+        env:
+          REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # used by CML
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # used by GH CLI
+        run: |
+          git config user.email "cml@example.com"
+          git config user.name "CML USER"
+
+          CIREVISION=$(git rev-parse HEAD)
+          BRANCH=$(git rev-parse --abbrev-ref HEAD)
+          git add .
+          git commit -m "CML auto commit"
+          git checkout -b "cml_${CIREVISION:0:10}"
+          git push --set-upstream origin "cml_${CIREVISION:0:10}"
+          git push
+          # if git fails, usually the params are identical and dvc.lock did not change
+
+          gh pr create --fill --base $BRANCH
+
+          gh pr merge --delete-branch --rebase "cml_${CIREVISION:0:10}"
+
+          echo "# Report" >> report.md
+          echo "## Computed Metrics"
+          dvc metrics show --md >> report.md
+
+          cml-send-comment report.md --commit-sha=$CIREVISION
