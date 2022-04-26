@@ -1,3 +1,6 @@
+[![DVC](https://img.shields.io/badge/-tracked-white.svg?logo=data-version-control&link=https://dvc.org/?utm_campaign=badge)](https://studio.iterative.ai/user/JR-1991/views/MLSession_Boosting_DVC-dj8z1mdwzf)
+ [![ZnTrack](https://img.shields.io/badge/Powered%20by-ZnTrack-%23007CB0)](https://zntrack.readthedocs.io/en/latest/)
+
 # Data Version Control and ZnTrack for ML
 #### ML-Session 27.4.2022, University of Stuttgart
 
