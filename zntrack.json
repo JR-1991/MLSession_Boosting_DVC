@@ -1,0 +1,30 @@
+{
+    "GradientBoosting": {
+        "data": {
+            "_type": "ZnTrackType",
+            "value": {
+                "module": "src.DatasetPreparation",
+                "cls": "DatasetPreparation",
+                "name": "DatasetPreparation"
+            }
+        }
+    },
+    "ModelEvaluation": {
+        "data": {
+            "_type": "ZnTrackType",
+            "value": {
+                "module": "src.DatasetPreparation",
+                "cls": "DatasetPreparation",
+                "name": "DatasetPreparation"
+            }
+        },
+        "gb": {
+            "_type": "ZnTrackType",
+            "value": {
+                "module": "src.GradientBoosting",
+                "cls": "GradientBoosting",
+                "name": "GradientBoosting"
+            }
+        }
+    }
+}

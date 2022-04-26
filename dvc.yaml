@@ -1,0 +1,30 @@
+stages:
+  DatasetPreparation:
+    cmd: "python3 -c \"from src.DatasetPreparation import DatasetPreparation; DatasetPreparation.load(name='DatasetPreparation').run_and_save()\"\
+      \ "
+    deps:
+    - src/DatasetPreparation.py
+    params:
+    - DatasetPreparation
+    outs:
+    - nodes/DatasetPreparation/outs.json
+  GradientBoosting:
+    cmd: "python3 -c \"from src.GradientBoosting import GradientBoosting; GradientBoosting.load(name='GradientBoosting').run_and_save()\"\
+      \ "
+    deps:
+    - nodes/DatasetPreparation/outs.json
+    - src/GradientBoosting.py
+    params:
+    - GradientBoosting
+    outs:
+    - nodes/GradientBoosting/outs.json
+  ModelEvaluation:
+    cmd: "python3 -c \"from src.ModelEvaluation import ModelEvaluation; ModelEvaluation.load(name='ModelEvaluation').run_and_save()\"\
+      \ "
+    deps:
+    - nodes/DatasetPreparation/outs.json
+    - nodes/GradientBoosting/outs.json
+    - src/ModelEvaluation.py
+    metrics:
+    - nodes/ModelEvaluation/metrics_no_cache.json:
+        cache: false
