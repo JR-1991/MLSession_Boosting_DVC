@@ -11,17 +11,17 @@ stages:
       params.yaml:
         DatasetPreparation:
           seed: 100
-          split: 0.75
+          split: 0.8
     outs:
     - path: nodes/DatasetPreparation/outs.json
-      md5: ae4fea8d5debfc67653b984b0fc4a6c7
+      md5: bf5e1f268f6476978c5ed20bfa38a7af
       size: 189144
   GradientBoosting:
     cmd: "python3 -c \"from src.GradientBoosting import GradientBoosting; GradientBoosting.load(name='GradientBoosting').run_and_save()\"\
       \ "
     deps:
     - path: nodes/DatasetPreparation/outs.json
-      md5: ae4fea8d5debfc67653b984b0fc4a6c7
+      md5: bf5e1f268f6476978c5ed20bfa38a7af
       size: 189144
     - path: src/GradientBoosting.py
       md5: e37af00c6a89674a74286f7e2c5d14eb
@@ -29,27 +29,27 @@ stages:
     params:
       params.yaml:
         GradientBoosting:
-          learning_rate: 0.05
+          learning_rate: 0.01
           max_depth: 5
-          n_estimators: 100
+          n_estimators: 1000
     outs:
     - path: nodes/GradientBoosting/outs.json
-      md5: 52a33991a02e4ae35f81369b3bd6e4b4
-      size: 494730
+      md5: aea1115b8553f6c74fdabe4b1023da71
+      size: 4218538
   ModelEvaluation:
     cmd: "python3 -c \"from src.ModelEvaluation import ModelEvaluation; ModelEvaluation.load(name='ModelEvaluation').run_and_save()\"\
       \ "
     deps:
     - path: nodes/DatasetPreparation/outs.json
-      md5: ae4fea8d5debfc67653b984b0fc4a6c7
+      md5: bf5e1f268f6476978c5ed20bfa38a7af
       size: 189144
     - path: nodes/GradientBoosting/outs.json
-      md5: 52a33991a02e4ae35f81369b3bd6e4b4
-      size: 494730
+      md5: aea1115b8553f6c74fdabe4b1023da71
+      size: 4218538
     - path: src/ModelEvaluation.py
       md5: e37af00c6a89674a74286f7e2c5d14eb
       size: 3518
     outs:
     - path: nodes/ModelEvaluation/metrics_no_cache.json
-      md5: b44ce96d36d38767febe615900dbcb20
-      size: 66
+      md5: ce4295f550e3d224af0474d0045128a7
+      size: 69
