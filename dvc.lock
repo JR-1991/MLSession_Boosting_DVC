@@ -30,12 +30,12 @@ stages:
       params.yaml:
         GradientBoosting:
           learning_rate: 0.1
-          max_depth: 10
-          n_estimators: 900
+          max_depth: 20
+          n_estimators: 2000
     outs:
     - path: nodes/GradientBoosting/outs.json
-      md5: cbba631ea8e289f967c504c3894884bb
-      size: 2403013
+      md5: 597cb8183423011c3b9ddc8b61c29d54
+      size: 4984963
   ModelEvaluation:
     cmd: "python3 -c \"from src.ModelEvaluation import ModelEvaluation; ModelEvaluation.load(name='ModelEvaluation').run_and_save()\"\
       \ "
@@ -44,8 +44,8 @@ stages:
       md5: ae4fea8d5debfc67653b984b0fc4a6c7
       size: 189144
     - path: nodes/GradientBoosting/outs.json
-      md5: cbba631ea8e289f967c504c3894884bb
-      size: 2403013
+      md5: 597cb8183423011c3b9ddc8b61c29d54
+      size: 4984963
     - path: src/ModelEvaluation.py
       md5: e37af00c6a89674a74286f7e2c5d14eb
       size: 3518
