@@ -1,3 +1,4 @@
+name: Publish on Dataverse
 on: push
 
 jobs:
