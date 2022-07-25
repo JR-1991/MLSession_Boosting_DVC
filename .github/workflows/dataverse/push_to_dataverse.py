@@ -61,3 +61,7 @@ def add_metrics(path, dataset):
 
 def main():
     print(os.listdir())
+
+
+if __name__ == "__main__":
+    main()
