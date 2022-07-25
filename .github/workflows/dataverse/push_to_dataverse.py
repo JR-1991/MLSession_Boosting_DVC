@@ -1,6 +1,7 @@
 import dvc.api
 import json
 import yaml
+import os
 
 from sdRDM import DataModel
 from sdRDM.linking.nodes import ClassNode, AttributeNode
@@ -59,4 +60,4 @@ def add_metrics(path, dataset):
 
 
 def main():
-    print("ES FUNKTIONIERT!!!")
+    print(os.listdir())

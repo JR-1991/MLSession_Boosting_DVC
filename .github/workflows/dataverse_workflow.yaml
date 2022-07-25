@@ -25,4 +25,4 @@ jobs:
           python -m pip install dvc
       - name: Push to Dataverse
         runs: |
-          python .git
+          python .github/workflows/dataverse/push_to_dataverse.py
