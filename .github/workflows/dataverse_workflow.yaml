@@ -4,10 +4,10 @@ jobs:
   push-to-dataverse:
     runs-on: ubuntu-latest
     env:
-      DATAVERSE_URL: ${{ secrets.DATAVERSE_URL }}
+      DATAVERSE_URL: https://darus.uni-stuttgart.de
       DATAVERSE_API_TOKEN: ${{ secrets.DATAVERSE_API_TOKEN }}
-      DATAVERSE: ${{ secrets.DATAVERSE }}
-      DV_LIB: ${{ secrets.DV_LIB }}
+      DATAVERSE: playground
+      DV_LIB: pyDaRUS
     steps:
       - name: Checkout
         uses: actions/checkout@v2
