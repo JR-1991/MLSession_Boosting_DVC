@@ -60,7 +60,30 @@ def add_metrics(path, dataset):
 
 
 def main():
-    print(os.listdir())
+    from pyDaRUS import Citation
+    from pyDaRUS.metadatablocks.citation import SubjectEnum
+
+    # Parse DVC repo
+    dataset = parse_dvc_repo()
+
+    # Map to Dataverse
+    dv_dataset = dataset.to_dataverse(linking_template="linking_template.yaml")
+
+    # Add citation placeholders
+    citation = Citation()
+    citation.title = "ML-Session Gradient Boosting Example"
+    citation.add_description(text="This is an example")
+    citation.subject = [SubjectEnum.computer_and__information__science]
+    citation.add_author(name="Jan Range")
+    citation.add_contact(name="Jan Range", email="jrange@gmail.com")
+
+    dv_dataset.add_metadatablock(citation)
+
+    # Add files in the repo
+    dv_dataset.add_directory(".")
+
+    # Upload to Dataverse
+    dv_dataset.upload("playground")
 
 
 if __name__ == "__main__":
