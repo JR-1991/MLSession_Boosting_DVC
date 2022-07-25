@@ -1,0 +1,28 @@
+on: push
+
+jobs:
+  push-to-dataverse:
+    runs-on: ubuntu-latest
+    env:
+      DATAVERSE_URL: ${{ secrets.DATAVERSE_URL }}
+      DATAVERSE_API_TOKEN: ${{ secrets.DATAVERSE_API_TOKEN }}
+      DATAVERSE: ${{ secrets.DATAVERSE }}
+      DV_LIB: ${{ secrets.DV_LIB }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.9
+      - name: Install dependencies
+        run: |
+          python -m pip install "$DV_LIB"
+          python -m pip install git+https://github.com/gdcc/easyDataverse.git
+          python -m pip uninstall -y pyDataverse
+          python -m pip install git+https://github.com/JR-1991/pyDataverse@0fcfcd3fbc6bf1aec869899f715a51dca25e91be
+          python -m pip install git+https://github.com/JR-1991/software-driven-rdm.git
+          python -m pip install dvc
+      - name: Push to Dataverse
+        runs: |
+          python .git

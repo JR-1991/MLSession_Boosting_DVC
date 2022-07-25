@@ -1,0 +1,12 @@
+__model__: MetaNode
+metrics:
+  - attribute: name
+    pattern: 'acc'
+    targets:
+      name: pyDaRUS.EngMeta.measured_variables.name
+      value: pyDaRUS.EngMeta.measured_variables.error
+  - attribute: name
+    pattern: 'f1_score'
+    targets:
+        name: pyDaRUS.EngMeta.measured_variables.name
+        value: pyDaRUS.EngMeta.measured_variables.error
